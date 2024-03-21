@@ -74,3 +74,4 @@ export class RandoMinaContract extends SmartContract {
         this.network.stakingEpochData.ledger.hash.requireEquals(claimedNetworkState);
     }
 }
+import { NetworkValue } from "o1js/dist/node/lib/precondition";
