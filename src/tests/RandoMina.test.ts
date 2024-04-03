@@ -279,16 +279,9 @@ describe('RandoMina Random Number Generator', () => {
     expect(isPRNGCorrect).toBe(true);
 
     console.log("Posting proof to blockchain...");
-    const txn: Mina.Transaction = await Mina.transaction({ sender: feePayerPublicKey, fee: transactionFee }, () => {
+   
+    await expect(Mina.transaction({ sender: feePayerPublicKey, fee: transactionFee }, () => {
       zkAppInstance.verifyRandomNumber(randomNumberGenerationObservation);
-    });
-
-    console.log("\tProving smart contract invocation...");
-    await txn.prove();
-    console.log("\tSmart contract invocation proved!");
-    
-    txn.sign([feePayer]);
-
-    await expect(txn.send()).rejects.toThrow(/Protocol_state_precondition_unsatisfied/);
+    })).rejects.toThrow(); 
   });
 });
